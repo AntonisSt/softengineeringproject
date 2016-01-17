@@ -18,10 +18,30 @@
         android:id="@+id/addEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Προσθήκη εκδήλωσης"
+        android:text="Προσθήκη"
         android:background="@drawable/backdialog"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
+    
+    <Button
+        android:id="@+id/editEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Επεξ/σία"
+        android:background="@drawable/backdialog"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="10dp" />
+    
+    <Button
+        android:id="@+id/deleteEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Διαγραφή"
+        android:background="@drawable/backdialog"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp" />
 
 </RelativeLayout>

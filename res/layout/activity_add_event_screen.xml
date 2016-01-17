@@ -23,7 +23,8 @@
 		    	android:layout_height="wrap_content"
 		    	android:hint="Τίτλος γεγονότος"
 		    	android:layout_alignParentTop="true"
-		    	android:layout_centerHorizontal="true"/>
+		    	android:layout_centerHorizontal="true"
+		    	android:gravity="center"/>
 		    
 		    <DatePicker 
 		        android:id="@+id/eventdate"
@@ -44,21 +45,21 @@
 		            android:layout_width="wrap_content"
 		        	android:layout_height="wrap_content"
 		        	android:text="Παράσταση"
-		        	android:textColor="#ffffff" />
+		        	android:textColor="#000000" />
 		        
 		        <RadioButton
 		            android:id="@+id/concertRB"
 		            android:layout_width="wrap_content"
 		        	android:layout_height="wrap_content"
 		        	android:text="Συναυλία"
-		        	android:textColor="#ffffff" />
+		        	android:textColor="#000000" />
 		        
 		        <RadioButton
 		            android:id="@+id/sportsRB"
 		            android:layout_width="wrap_content"
 		        	android:layout_height="wrap_content"
 		        	android:text="Αγώνας"
-		        	android:textColor="#ffffff" />
+		        	android:textColor="#000000" />
 		        
 		    </RadioGroup>
 		    
@@ -69,6 +70,7 @@
 		        android:hint="Είδος μουσικής"
 		        android:layout_alignParentRight="true"
 		        android:layout_below="@+id/typegroup"
+		        android:gravity="center"
 		        />
 		    
 		    <EditText 
@@ -78,6 +80,7 @@
 		        android:hint="Καλλιτέχνης"
 		        android:layout_alignParentLeft="true"
 		        android:layout_below="@+id/typegroup"
+		        android:gravity="center"
 		        />
 		    
 		    <EditText 
@@ -87,6 +90,7 @@
 		        android:hint="Γηπεδούχος"
 		        android:layout_alignParentLeft="true"
 		        android:layout_below="@+id/typegroup"
+		        android:gravity="center"
 		        />
 		    
 		    <EditText 
@@ -96,15 +100,17 @@
 		        android:hint="Φιλοξενούμενος"
 		        android:layout_alignParentRight="true"
 		        android:layout_below="@+id/typegroup"
+		        android:gravity="center"
 		        />
 		    
 		    <EditText 
 		        android:id="@+id/performance"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:hint="Συγγραφέας"
+		        android:hint="Σκηνοθέτης"
 		        android:layout_centerHorizontal="true"
 		        android:layout_below="@+id/typegroup"
+		        android:gravity="center"
 		        />
 		</RelativeLayout>
 	</ScrollView>

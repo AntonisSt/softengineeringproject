@@ -24,12 +24,21 @@ public class AddEventScreen extends Activity {
 	private MyDatabase db;
 	private static final String DATABASE_NAME = "softeng.db";
     private static final int DATABASE_VERSION = 1;
+    private String eventname = "";
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_add_event_screen);
+		
+		Intent i = getIntent();
+		try {
+			eventname = i.getStringExtra("name");
+			Log.d("event name", eventname);
+		} catch(NullPointerException e) {
+			
+		}
 		
 		db = new MyDatabase(this, DATABASE_NAME, null, DATABASE_VERSION);
 		
@@ -100,21 +109,39 @@ public class AddEventScreen extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				String date = dPicker.getDayOfMonth() + "/" + dPicker.getMonth() + "/" + dPicker.getYear();
-				if(theaterRB.isChecked()) {
-					db.addEventTheater(name.getText().toString(), date, "false", "theater", performance.getText().toString());
-					Intent i = new Intent(AddEventScreen.this, AdminScreen.class);
-					startActivity(i);
-				} else if(sportsRB.isChecked()) {
-					db.addEventSports(name.getText().toString(), date, "false", "sports", opp1.getText().toString(), opp2.getText().toString());
-					Log.d("opp1", opp1.getText().toString());
-					Intent i = new Intent(AddEventScreen.this, AdminScreen.class);
-					startActivity(i);
-				} else if(concertRB.isChecked()) {
-					db.addEventSports(name.getText().toString(), date, "false", "music", artist.getText().toString(), genre.getText().toString());
-					Intent i = new Intent(AddEventScreen.this, AdminScreen.class);
-					startActivity(i);
-				} else
-					Toast.makeText(AddEventScreen.this, "Συμπληρώστε όλα τα στοιχεία", Toast.LENGTH_SHORT).show();
+				if(eventname==null)
+					if(theaterRB.isChecked()) {
+						db.addEventTheater(name.getText().toString(), date, "false", "theater", performance.getText().toString());
+						Intent i = new Intent(AddEventScreen.this, AdminScreen.class);
+						startActivity(i);
+					} else if(sportsRB.isChecked()) {
+						db.addEventSports(name.getText().toString(), date, "false", "sports", opp1.getText().toString(), opp2.getText().toString());
+						Log.d("opp1", opp1.getText().toString());
+						Intent i = new Intent(AddEventScreen.this, AdminScreen.class);
+						startActivity(i);
+					} else if(concertRB.isChecked()) {
+						db.addEventMusic(name.getText().toString(), date, "false", "music", artist.getText().toString(), genre.getText().toString());
+						Intent i = new Intent(AddEventScreen.this, AdminScreen.class);
+						startActivity(i);
+					} else
+						Toast.makeText(AddEventScreen.this, "Συμπληρώστε όλα τα στοιχεία", Toast.LENGTH_SHORT).show();
+				else {
+					if(theaterRB.isChecked()) {
+						db.updateEventTheater(eventname, name.getText().toString(), date, "false", "theater", performance.getText().toString());
+						Intent i = new Intent(AddEventScreen.this, AdminScreen.class);
+						startActivity(i);
+					} else if(sportsRB.isChecked()) {
+						db.updateEventSports(eventname, name.getText().toString(), date, "false", "sports", opp1.getText().toString(), opp2.getText().toString());
+						Log.d("opp1", opp1.getText().toString());
+						Intent i = new Intent(AddEventScreen.this, AdminScreen.class);
+						startActivity(i);
+					} else if(concertRB.isChecked()) {
+						db.updateEventMusic(eventname, name.getText().toString(), date, "false", "music", artist.getText().toString(), genre.getText().toString());
+						Intent i = new Intent(AddEventScreen.this, AdminScreen.class);
+						startActivity(i);
+					} else
+						Toast.makeText(AddEventScreen.this, "Συμπληρώστε όλα τα στοιχεία", Toast.LENGTH_SHORT).show();
+				}
 			}
 			
 		});
