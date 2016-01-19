@@ -18,7 +18,7 @@ public class LoginScreen extends Activity {
 
 	private EditText username, password;
 	private Button login, register;
-	private MyDatabase db;
+	private MyDatabaseClient db;
 	private RadioButton user, admin;
 	private static final String DATABASE_NAME = "softeng.db";
     private static final int DATABASE_VERSION = 1;
@@ -38,7 +38,7 @@ public class LoginScreen extends Activity {
 		user = (RadioButton) findViewById(R.id.userRadioButton);
 		admin = (RadioButton) findViewById(R.id.adminRadioButton);
 		
-		db = new MyDatabase(this, DATABASE_NAME, null, DATABASE_VERSION);
+		db = new MyDatabaseClient(this, DATABASE_NAME, null, DATABASE_VERSION);
 		
 		login.setOnClickListener(new OnClickListener(){
 

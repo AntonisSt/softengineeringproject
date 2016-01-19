@@ -23,7 +23,7 @@ public class UserScreen extends Activity {
 
 	private Button confirm;
 	private ListView list;
-	private MyDatabase db;
+	private MyDatabaseClient db;
 	private ArrayList<Event> eventsList = new ArrayList<Event>();
 	private CustomAdapter cAdapter;
 	private static final String DATABASE_NAME = "softeng.db";
@@ -35,67 +35,16 @@ public class UserScreen extends Activity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_user_screen);
 		
-		db = new MyDatabase(this, DATABASE_NAME, null, DATABASE_VERSION);
+		db = new MyDatabaseClient(this, DATABASE_NAME, null, DATABASE_VERSION);
 		
 		confirm = (Button) findViewById(R.id.confirm);
 		list = (ListView) findViewById(R.id.eventsList);
 		Thread thread = new Thread(new Runnable() {
 
-			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				Cursor c = db.getEventsAdmin();
-				while(!c.isAfterLast()) {
-					String date = c.getString(c.getColumnIndex("date"));
-					String[] dateParts = date.split("\\/");
-					Date eventDate = new Date();
-					eventDate.setDate(Integer.parseInt(dateParts[0]));
-					eventDate.setMonth(Integer.parseInt(dateParts[1]));
-					eventDate.setYear(Integer.parseInt(dateParts[2]));
-					Date todayDate = new Date();
-					if(!todayDate.after(eventDate)) {
-						ArrayList<String> name = new ArrayList<String>();
-						name.add(c.getString(c.getColumnIndex("events")));
-						db.deleteEvents(name);
-					}else {
-						if(c.getString(c.getColumnIndex("type")).equals("sports")) {
-							SportEvent event = new SportEvent();
-							event.setEventName(c.getString(c.getColumnIndex("events")));
-							event.setType(c.getString(c.getColumnIndex("type")));
-							event.setEventDate(c.getString(c.getColumnIndex("date")));
-							event.setOpponents(c.getString(c.getColumnIndex("opponent1")), c.getString(c.getColumnIndex("opponent2")));
-							if(c.getString(c.getColumnIndex("status")).equals("true"))
-								event.setAttend(true);
-							else
-								event.setAttend(false);
-							eventsList.add(event);
-						} else if(c.getString(c.getColumnIndex("type")).equals("music")) {
-							MusicEvent event = new MusicEvent();
-							event.setEventName(c.getString(c.getColumnIndex("events")));
-							event.setType(c.getString(c.getColumnIndex("type")));
-							event.setEventDate(c.getString(c.getColumnIndex("date")));
-							event.setArtistGenre(c.getString(c.getColumnIndex("artist")), c.getString(c.getColumnIndex("genre")));
-							if(c.getString(c.getColumnIndex("status")).equals("true"))
-								event.setAttend(true);
-							else
-								event.setAttend(false);
-							eventsList.add(event);
-						} else {
-							TheaterEvent event = new TheaterEvent();
-							event.setEventName(c.getString(c.getColumnIndex("events")));
-							event.setType(c.getString(c.getColumnIndex("type")));
-							event.setEventDate(c.getString(c.getColumnIndex("date")));
-							event.setDirector(c.getString(c.getColumnIndex("showName")));
-							if(c.getString(c.getColumnIndex("status")).equals("true"))
-								event.setAttend(true);
-							else
-								event.setAttend(false);
-							eventsList.add(event);
-						}
-					}	
-					c.moveToNext();
-				}
+				getEvents();
 			}
 			
 		});
@@ -197,6 +146,61 @@ public class UserScreen extends Activity {
 			}
 			
 		});
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void getEvents() {
+		Cursor c = db.getEventsAdmin();
+		while(!c.isAfterLast()) {
+			String date = c.getString(c.getColumnIndex("date"));
+			String[] dateParts = date.split("\\/");
+			Date eventDate = new Date();
+			eventDate.setDate(Integer.parseInt(dateParts[0]));
+			eventDate.setMonth(Integer.parseInt(dateParts[1]));
+			eventDate.setYear(Integer.parseInt(dateParts[2]));
+			Date todayDate = new Date();
+			if(!todayDate.after(eventDate)) {
+				ArrayList<String> name = new ArrayList<String>();
+				name.add(c.getString(c.getColumnIndex("events")));
+				db.deleteEvents(name);
+			}else {
+				if(c.getString(c.getColumnIndex("type")).equals("sports")) {
+					SportEvent event = new SportEvent();
+					event.setEventName(c.getString(c.getColumnIndex("events")));
+					event.setType(c.getString(c.getColumnIndex("type")));
+					event.setEventDate(c.getString(c.getColumnIndex("date")));
+					event.setOpponents(c.getString(c.getColumnIndex("opponent1")), c.getString(c.getColumnIndex("opponent2")));
+					if(c.getString(c.getColumnIndex("status")).equals("true"))
+						event.setAttend(true);
+					else
+						event.setAttend(false);
+					eventsList.add(event);
+				} else if(c.getString(c.getColumnIndex("type")).equals("music")) {
+					MusicEvent event = new MusicEvent();
+					event.setEventName(c.getString(c.getColumnIndex("events")));
+					event.setType(c.getString(c.getColumnIndex("type")));
+					event.setEventDate(c.getString(c.getColumnIndex("date")));
+					event.setArtistGenre(c.getString(c.getColumnIndex("artist")), c.getString(c.getColumnIndex("genre")));
+					if(c.getString(c.getColumnIndex("status")).equals("true"))
+						event.setAttend(true);
+					else
+						event.setAttend(false);
+					eventsList.add(event);
+				} else {
+					TheaterEvent event = new TheaterEvent();
+					event.setEventName(c.getString(c.getColumnIndex("events")));
+					event.setType(c.getString(c.getColumnIndex("type")));
+					event.setEventDate(c.getString(c.getColumnIndex("date")));
+					event.setDirector(c.getString(c.getColumnIndex("showName")));
+					if(c.getString(c.getColumnIndex("status")).equals("true"))
+						event.setAttend(true);
+					else
+						event.setAttend(false);
+					eventsList.add(event);
+				}
+			}	
+			c.moveToNext();
+		}
 	}
 
 	@Override

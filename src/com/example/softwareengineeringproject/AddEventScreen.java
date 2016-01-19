@@ -66,11 +66,7 @@ public class AddEventScreen extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				performance.setVisibility(View.VISIBLE);
-				opp1.setVisibility(View.INVISIBLE);
-				opp2.setVisibility(View.INVISIBLE);
-				genre.setVisibility(View.INVISIBLE);
-				artist.setVisibility(View.INVISIBLE);
+				setTheaterVisible();
 			}
 			
 		});
@@ -80,11 +76,7 @@ public class AddEventScreen extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				performance.setVisibility(View.INVISIBLE);
-				opp1.setVisibility(View.INVISIBLE);
-				opp2.setVisibility(View.INVISIBLE);
-				genre.setVisibility(View.VISIBLE);
-				artist.setVisibility(View.VISIBLE);
+				setMusicVisible();
 			}
 			
 		});
@@ -94,11 +86,7 @@ public class AddEventScreen extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				performance.setVisibility(View.INVISIBLE);
-				opp1.setVisibility(View.VISIBLE);
-				opp2.setVisibility(View.VISIBLE);
-				genre.setVisibility(View.INVISIBLE);
-				artist.setVisibility(View.INVISIBLE);
+				setSportsVisible();
 			}
 			
 		});
@@ -145,6 +133,30 @@ public class AddEventScreen extends Activity {
 			}
 			
 		});
+	}
+	
+	public void setTheaterVisible() {
+		performance.setVisibility(View.VISIBLE);
+		opp1.setVisibility(View.INVISIBLE);
+		opp2.setVisibility(View.INVISIBLE);
+		genre.setVisibility(View.INVISIBLE);
+		artist.setVisibility(View.INVISIBLE);
+	}
+	
+	public void setSportsVisible() {
+		performance.setVisibility(View.INVISIBLE);
+		opp1.setVisibility(View.VISIBLE);
+		opp2.setVisibility(View.VISIBLE);
+		genre.setVisibility(View.INVISIBLE);
+		artist.setVisibility(View.INVISIBLE);
+	}
+	
+	public void setMusicVisible() {
+		performance.setVisibility(View.INVISIBLE);
+		opp1.setVisibility(View.INVISIBLE);
+		opp2.setVisibility(View.INVISIBLE);
+		genre.setVisibility(View.VISIBLE);
+		artist.setVisibility(View.VISIBLE);
 	}
 
 	@Override
